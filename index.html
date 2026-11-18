@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Alon Moneli, a computer science student at Ben-Gurion University. Explore my Python backend and C++ systems projects and my interests in machine learning and AI engineering.">
+  <meta property="og:title" content="Alon Moneli · Software Engineering Portfolio">
+  <meta property="og:description" content="Python backends, C++ systems, and an interest in machine learning and AI engineering. Projects by Alon Moneli, a computer science student at Ben-Gurion University.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://alonmoneli.github.io/">
+  <meta property="og:url" content="https://alonmoneli.github.io/">
+  <meta property="og:image" content="https://alonmoneli.github.io/assets/blue-processor.webp">
+  <link rel="icon" href="assets/monogram.png" type="image/png">
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="monitor.js" defer></script>
+  <title>Alon Moneli · Software Engineering Portfolio</title>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="#top" aria-label="Alon Moneli, home">
+        <span class="monogram" aria-hidden="true">am<span>.</span></span>
+        <span class="brand-name">Alon Moneli</span>
+      </a>
+      <div class="header-actions">
+        <nav aria-label="Main navigation">
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a class="nav-github" href="https://github.com/alonmoneli">GitHub <span class="arrow" aria-hidden="true"></span></a>
+        </nav>
+        <div class="theme-switch" role="group" aria-label="Color theme" hidden>
+          <button type="button" data-color-theme="light" aria-pressed="false">Light</button>
+          <button type="button" data-color-theme="dark" aria-pressed="false">Dark</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero container" aria-labelledby="intro-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="signal" aria-hidden="true"></span> Open to student engineering roles</p>
+        <h1 id="intro-title">Alon Moneli</h1>
+        <p class="hero-role">Python backends &amp; C++ systems</p>
+        <p class="hero-summary">I’m a third-year computer science student at Ben-Gurion University. I build APIs, Linux tools, and concurrent software, and I’m exploring machine learning and AI engineering.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#work">Explore my work <span class="arrow" aria-hidden="true"></span></a>
+          <a class="button button-secondary" href="#contact">Get in touch <span class="arrow" aria-hidden="true"></span></a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <img src="assets/blue-processor.webp" alt="" width="1024" height="768" fetchpriority="high">
+      </div>
+    </section>
+
+    <section class="projects container" id="work" aria-labelledby="work-title">
+      <div class="section-header">
+        <h2 id="work-title">Selected projects</h2>
+        <a href="https://github.com/alonmoneli?tab=repositories" class="text-link all-repos">All repositories <span class="arrow" aria-hidden="true"></span></a>
+      </div>
+
+      <article class="featured" aria-labelledby="monitor-title">
+        <div class="feature-main">
+          <div class="feature-copy">
+            <p class="eyebrow feature-label">Featured project</p>
+            <h3 id="monitor-title">Linux System Monitor</h3>
+            <p>A C++ collector samples CPU and memory usage on Linux. A Python service built with FastAPI validates CPU alerts and recovery events, stores them in PostgreSQL, and exposes the event history through an API.</p>
+            <ul class="tags" aria-label="Technologies">
+              <li>Python</li><li>FastAPI</li><li>PostgreSQL</li><li>C++20</li><li>Linux</li><li>Docker Compose</li>
+            </ul>
+            <a class="text-link feature-link" href="https://github.com/alonmoneli/system-monitor" aria-label="View Linux System Monitor source on GitHub">View source <span class="arrow" aria-hidden="true"></span></a>
+          </div>
+
+          <div class="monitor" aria-labelledby="demo-title">
+            <div class="monitor-top">
+              <div class="monitor-caption"><span class="monitor-led" aria-hidden="true"></span><h4 id="demo-title">CPU alert demo</h4></div>
+              <span class="demo-label">Sample data</span>
+            </div>
+            <div class="monitor-content">
+              <div class="scenario-controls" role="group" aria-label="CPU load scenario" hidden>
+                <button type="button" data-scenario="spike" aria-pressed="true">CPU spike</button>
+                <button type="button" data-scenario="normal" aria-pressed="false">Normal load</button>
+              </div>
+              <div class="plot-row">
+                <div class="plot-axis" aria-hidden="true"><span>100%</span><span>50%</span><span>0%</span></div>
+                <div class="plot" aria-hidden="true">
+                  <div class="threshold"><span>80%</span></div>
+                  <div class="bar" data-level="high" style="--usage:83%"></div>
+                  <div class="bar" data-level="high" style="--usage:88%"></div>
+                  <div class="bar" data-level="event" style="--usage:92%"></div>
+                  <div class="bar" data-level="high" style="--usage:86%"></div>
+                  <div class="bar" data-level="normal" style="--usage:31%"></div>
+                </div>
+              </div>
+              <ol class="plot-labels" aria-label="CPU usage by sample">
+                <li><span class="sr-only">Sample 1, CPU usage </span>83%</li>
+                <li><span class="sr-only">Sample 2, CPU usage </span>88%</li>
+                <li><span class="sr-only">Sample 3, CPU usage </span>92%</li>
+                <li><span class="sr-only">Sample 4, CPU usage </span>86%</li>
+                <li><span class="sr-only">Sample 5, CPU usage </span>31%</li>
+              </ol>
+              <p class="event-feed" aria-live="polite" aria-atomic="true"><span class="event"><b>Alert</b> Sample 3</span><span class="event"><b>Recovered</b> Sample 5</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pipeline" aria-label="System Monitor data flow">
+          <div><span>Collect</span><strong>Linux <code>/proc</code></strong></div>
+          <div><span>Evaluate</span><strong>3 consecutive samples at ≥80%</strong></div>
+          <div><span>Send</span><strong><code>POST /events</code></strong></div>
+          <div><span>Persist</span><strong>PostgreSQL</strong></div>
+        </div>
+      </article>
+
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="project-type">Networking</div>
+          <h3>Concurrent STOMP Messaging System</h3>
+          <p>A Java server and multithreaded C++ client use STOMP over TCP to share sports updates. A Python service records user activity in SQLite.</p>
+          <ul class="tags" aria-label="Technologies"><li>Java</li><li>C++</li><li>Python</li><li>SQLite</li></ul>
+          <a class="text-link" href="https://github.com/alonmoneli/concurrent-stomp-messaging-system" aria-label="View Concurrent STOMP Messaging System source on GitHub">View source <span class="arrow" aria-hidden="true"></span></a>
+        </article>
+        <article class="project-card">
+          <div class="project-type">Concurrency</div>
+          <h3>Concurrent Computation Engine</h3>
+          <p>A Java engine that evaluates matrix expressions from JSON. A custom scheduler distributes row-level tasks across worker threads, with read/write locks protecting shared data.</p>
+          <ul class="tags" aria-label="Technologies"><li>Java</li><li>Multithreading</li><li>JUnit</li></ul>
+          <a class="text-link" href="https://github.com/alonmoneli/concurrent-computation-engine" aria-label="View Concurrent Computation Engine source on GitHub">View source <span class="arrow" aria-hidden="true"></span></a>
+        </article>
+        <article class="project-card">
+          <div class="project-type">Resource management</div>
+          <h3>C++ DJ Session Engine</h3>
+          <p>A command-line simulator for playlists and two-deck transitions using track metadata. It uses an LRU cache for track loading and a custom move-only pointer to manage ownership.</p>
+          <ul class="tags" aria-label="Technologies"><li>C++</li><li>LRU cache</li><li>Move semantics</li></ul>
+          <a class="text-link" href="https://github.com/alonmoneli/cpp-dj-session-engine" aria-label="View C++ DJ Session Engine source on GitHub">View source <span class="arrow" aria-hidden="true"></span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="about container" id="about" aria-labelledby="about-title">
+      <div class="about-copy">
+        <h2 id="about-title">About me</h2>
+        <p>My projects have taken me from managing memory and coordinating worker threads to building APIs and storing telemetry. I’m interested in applying those skills to model serving, inference performance, and monitoring.</p>
+        <p>I’m open to student roles in Python development, backend, C++ and systems, machine learning, and AI engineering.</p>
+      </div>
+      <dl class="about-facts">
+        <div><dt>Education</dt><dd>B.Sc. Computer Science<span>Ben-Gurion University of the Negev · Expected 2028</span></dd></div>
+        <div><dt>Experience</dt><dd>Information Security Coordinator<span>IDF Intelligence · 2021–2024</span></dd></div>
+        <div><dt>Languages</dt><dd>Python · C++ · Java · SQL</dd></div>
+        <div><dt>Technologies</dt><dd>FastAPI · PostgreSQL · Linux · Docker · Git</dd></div>
+      </dl>
+    </section>
+
+    <section id="contact" class="contact container" aria-labelledby="contact-title">
+      <div class="contact-panel">
+        <div><h2 id="contact-title">Let’s connect</h2><p>Hiring for a student engineering role? I’d like to hear from you.</p></div>
+        <div class="contact-actions">
+          <a class="button button-primary" href="mailto:alonmoneli@gmail.com">Email me <span class="arrow" aria-hidden="true"></span></a>
+          <a class="button button-secondary" href="https://github.com/alonmoneli">GitHub <span class="arrow" aria-hidden="true"></span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <span>Alon Moneli</span>
+    <a href="#top">Back to top <span class="arrow" aria-hidden="true"></span></a>
+  </footer>
+</body>
+</html>
