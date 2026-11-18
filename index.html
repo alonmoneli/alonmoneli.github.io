@@ -13,9 +13,10 @@
   <meta property="og:image" content="https://alonmoneli.github.io/assets/blue-processor.webp">
   <link rel="icon" href="assets/monogram.png" type="image/png">
   <script src="theme.js"></script>
-  <link rel="stylesheet" href="style.css?v=25ce196f">
+  <link rel="stylesheet" href="style.css?v=9682344c">
   <script src="monitor.js" defer></script>
   <script src="projects.js" defer></script>
+  <script src="walkthrough.js" defer></script>
   <title>Alon Moneli · Software Engineering Portfolio</title>
 </head>
 <body id="top">
@@ -49,7 +50,8 @@
         <p class="hero-summary">I’m a third-year computer science student at Ben-Gurion University. I build APIs, Linux tools, and concurrent software, and I’m exploring machine learning and AI engineering.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="#work">Explore my work <span class="arrow" aria-hidden="true"></span></a>
-          <a class="button button-secondary" href="#contact">Get in touch <span class="arrow" aria-hidden="true"></span></a>
+          <a class="button button-secondary" href="assets/alon-moneli-resume.pdf" download>Download résumé <span class="arrow arrow-down" aria-hidden="true"></span></a>
+          <a class="text-link" href="#contact">Get in touch <span class="arrow" aria-hidden="true"></span></a>
         </div>
       </div>
       <div class="hero-art">
@@ -127,12 +129,64 @@
           </div>
         </div>
 
-        <div class="pipeline" aria-label="System Monitor data flow">
-          <div><span>Collect</span><strong>Linux <code>/proc</code></strong></div>
-          <div><span>Evaluate</span><strong>3 consecutive samples at ≥80%</strong></div>
-          <div><span>Send</span><strong><code>POST /events</code></strong></div>
-          <div><span>Persist</span><strong>PostgreSQL</strong></div>
-        </div>
+        <section class="walkthrough" aria-labelledby="walkthrough-title">
+          <div class="walkthrough-header">
+            <h4 id="walkthrough-title">Follow a CPU alert</h4>
+            <p>Walk through one alert from the Linux collector to PostgreSQL using an example CPU spike.</p>
+          </div>
+          <fieldset class="language-options walkthrough-options" hidden>
+            <legend class="sr-only">System Monitor walkthrough steps</legend>
+            <label><input class="sr-only" type="radio" name="walkthrough-step" value="collect" aria-controls="walkthrough-collect" checked><span>Collect</span></label>
+            <label><input class="sr-only" type="radio" name="walkthrough-step" value="evaluate" aria-controls="walkthrough-evaluate"><span>Evaluate</span></label>
+            <label><input class="sr-only" type="radio" name="walkthrough-step" value="send" aria-controls="walkthrough-send"><span>Send</span></label>
+            <label><input class="sr-only" type="radio" name="walkthrough-step" value="store" aria-controls="walkthrough-store"><span>Store</span></label>
+          </fieldset>
+          <div class="walkthrough-panels" aria-live="polite">
+            <section class="walkthrough-step" id="walkthrough-collect" data-walkthrough-step="collect" aria-labelledby="walkthrough-collect-title">
+              <div>
+                <h5 id="walkthrough-collect-title">Sample CPU usage on Linux</h5>
+                <p>The C++ collector reads cumulative CPU counters from <code>/proc/stat</code> and measures the change between samples. It also reads memory usage from <code>/proc/meminfo</code>.</p>
+              </div>
+              <pre><code>CPU sample 1    83%
+CPU sample 2    88%
+CPU sample 3    92%</code></pre>
+            </section>
+            <section class="walkthrough-step" id="walkthrough-evaluate" data-walkthrough-step="evaluate" aria-labelledby="walkthrough-evaluate-title">
+              <div>
+                <h5 id="walkthrough-evaluate-title">Detect a sustained spike</h5>
+                <p>Three consecutive readings at or above 80% trigger an alert. The rule stays active until a reading drops below 80%, which triggers a recovery event.</p>
+              </div>
+              <pre><code>83%  →  88%  →  92%
+                  ↑ alert</code></pre>
+            </section>
+            <section class="walkthrough-step" id="walkthrough-send" data-walkthrough-step="send" aria-labelledby="walkthrough-send-title">
+              <div>
+                <h5 id="walkthrough-send-title">Send the alert to FastAPI</h5>
+                <p>The collector sends the event over HTTP. FastAPI validates the event kind and checks that the CPU percentage is between 0 and 100 before saving it.</p>
+              </div>
+              <pre><code>POST /events
+{
+  "kind": "alert",
+  "cpu_percent": 92.0
+}</code></pre>
+            </section>
+            <section class="walkthrough-step" id="walkthrough-store" data-walkthrough-step="store" aria-labelledby="walkthrough-store-title">
+              <div>
+                <h5 id="walkthrough-store-title">Read the alert back from PostgreSQL</h5>
+                <p>PostgreSQL assigns an ID and receipt timestamp. <code>GET /events</code> returns the stored history even after the collector exits.</p>
+              </div>
+              <pre><code>GET /events
+[
+  {
+    "id": 42,
+    "received_at": "2026-11-18T18:00:00Z",
+    "kind": "alert",
+    "cpu_percent": 92.0
+  }
+]</code></pre>
+            </section>
+          </div>
+        </section>
       </article>
 
       <div class="project-grid">
