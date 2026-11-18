@@ -15,6 +15,7 @@
   <script src="theme.js"></script>
   <link rel="stylesheet" href="style.css">
   <script src="monitor.js" defer></script>
+  <script src="projects.js" defer></script>
   <title>Alon Moneli · Software Engineering Portfolio</title>
 </head>
 <body id="top">
@@ -62,7 +63,18 @@
         <a href="https://github.com/alonmoneli?tab=repositories" class="text-link all-repos">All repositories <span class="arrow" aria-hidden="true"></span></a>
       </div>
 
-      <article class="featured" aria-labelledby="monitor-title">
+      <div class="project-filters" hidden>
+        <fieldset class="language-options">
+          <legend class="sr-only">Filter projects by programming language</legend>
+          <label><input class="sr-only" type="radio" name="project-language" value="all" checked><span>All projects</span></label>
+          <label><input class="sr-only" type="radio" name="project-language" value="python"><span>Python</span></label>
+          <label><input class="sr-only" type="radio" name="project-language" value="cpp"><span>C++</span></label>
+          <label><input class="sr-only" type="radio" name="project-language" value="java"><span>Java</span></label>
+        </fieldset>
+        <p class="project-count" role="status"></p>
+      </div>
+
+      <article class="featured" aria-labelledby="monitor-title" data-project-languages="cpp python">
         <div class="feature-main">
           <div class="feature-copy">
             <p class="eyebrow feature-label">Featured project</p>
@@ -72,6 +84,14 @@
               <li>Python</li><li>FastAPI</li><li>PostgreSQL</li><li>C++20</li><li>Linux</li><li>Docker Compose</li>
             </ul>
             <a class="text-link feature-link" href="https://github.com/alonmoneli/system-monitor" aria-label="View Linux System Monitor source on GitHub">View source <span class="arrow" aria-hidden="true"></span></a>
+            <details class="project-details">
+              <summary>Technical details</summary>
+              <ul>
+                <li>Calculates CPU utilization from changes in Linux counters between samples and uses <code>MemAvailable</code> to estimate memory usage.</li>
+                <li>Tracks alert state so a sustained spike sends one alert and a separate recovery event.</li>
+                <li>Runs the Python API and PostgreSQL in Docker Compose while the C++ collector runs on the host.</li>
+              </ul>
+            </details>
           </div>
 
           <div class="monitor" aria-labelledby="demo-title">
@@ -116,26 +136,50 @@
       </article>
 
       <div class="project-grid">
-        <article class="project-card">
+        <article class="project-card" aria-labelledby="stomp-title" data-project-languages="java cpp python">
           <div class="project-type">Networking</div>
-          <h3>Concurrent STOMP Messaging System</h3>
+          <h3 id="stomp-title">Concurrent STOMP Messaging System</h3>
           <p>A Java server and multithreaded C++ client use STOMP over TCP to share sports updates. A Python service records user activity in SQLite.</p>
           <ul class="tags" aria-label="Technologies"><li>Java</li><li>C++</li><li>Python</li><li>SQLite</li></ul>
           <a class="text-link" href="https://github.com/alonmoneli/concurrent-stomp-messaging-system" aria-label="View Concurrent STOMP Messaging System source on GitHub">View source <span class="arrow" aria-hidden="true"></span></a>
+          <details class="project-details">
+            <summary>Technical details</summary>
+            <ul>
+              <li>The Java server can use either a thread per connection or a Java NIO reactor backed by a worker pool.</li>
+              <li>The C++ client reads keyboard input and incoming messages on separate threads, so it can receive updates while waiting for a command.</li>
+              <li>The Python service stores registration and session activity in SQLite.</li>
+            </ul>
+          </details>
         </article>
-        <article class="project-card">
+        <article class="project-card" aria-labelledby="compute-title" data-project-languages="java">
           <div class="project-type">Concurrency</div>
-          <h3>Concurrent Computation Engine</h3>
+          <h3 id="compute-title">Concurrent Computation Engine</h3>
           <p>A Java engine that evaluates matrix expressions from JSON. A custom scheduler distributes row-level tasks across worker threads, with read/write locks protecting shared data.</p>
           <ul class="tags" aria-label="Technologies"><li>Java</li><li>Multithreading</li><li>JUnit</li></ul>
           <a class="text-link" href="https://github.com/alonmoneli/concurrent-computation-engine" aria-label="View Concurrent Computation Engine source on GitHub">View source <span class="arrow" aria-hidden="true"></span></a>
+          <details class="project-details">
+            <summary>Technical details</summary>
+            <ul>
+              <li>Reads a JSON expression tree and splits each matrix operation into row-level tasks.</li>
+              <li>Uses a custom Java executor that assigns work based on workers’ accumulated execution time and a per-worker factor.</li>
+              <li>JUnit tests cover matrix operations, shared data access, and task dispatch.</li>
+            </ul>
+          </details>
         </article>
-        <article class="project-card">
+        <article class="project-card" aria-labelledby="dj-title" data-project-languages="cpp">
           <div class="project-type">Resource management</div>
-          <h3>C++ DJ Session Engine</h3>
+          <h3 id="dj-title">C++ DJ Session Engine</h3>
           <p>A command-line simulator for playlists and two-deck transitions using track metadata. It uses an LRU cache for track loading and a custom move-only pointer to manage ownership.</p>
           <ul class="tags" aria-label="Technologies"><li>C++</li><li>LRU cache</li><li>Move semantics</li></ul>
           <a class="text-link" href="https://github.com/alonmoneli/cpp-dj-session-engine" aria-label="View C++ DJ Session Engine source on GitHub">View source <span class="arrow" aria-hidden="true"></span></a>
+          <details class="project-details">
+            <summary>Technical details</summary>
+            <ul>
+              <li>Models MP3 and WAV tracks polymorphically and loads playlists from a configuration file.</li>
+              <li>Uses copy and move semantics to handle track ownership across the library, cache, and mixer.</li>
+              <li>Simulates two-deck transitions using BPM metadata and optional tempo synchronization.</li>
+            </ul>
+          </details>
         </article>
       </div>
     </section>
